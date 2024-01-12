@@ -12,6 +12,7 @@
 
 ''' 
 
+
 class Contact:
     def __init__(self, contact_detalis_dict):
         self.first_name = contact_detalis_dict.get("first_name")
@@ -31,7 +32,6 @@ class Contact:
         """
         while True:
             choice = int(input("""
-                        ----Choose one of the options below----
                         1. change first name
                         2. change last name
                         3. change address
@@ -44,29 +44,29 @@ class Contact:
             """))
             match choice:
                 case 1:
-                    change_company = input("Enter new first name: ")
-                    self.first_name = change_company
+                    change_contact = input("Enter new first name: ")
+                    self.first_name = change_contact
                 case 2:
-                    change_company = input("Enter new last name: ")
-                    self.last_name = change_company
+                    change_contact = input("Enter new last name: ")
+                    self.last_name = change_contact
                 case 3:
-                    change_company = input("Enter new address: ")
-                    self.address = change_company
+                    change_contact = input("Enter new address: ")
+                    self.address = change_contact
                 case 4:
-                    change_company = input("Enter new city: ")
-                    self.city = change_company
+                    change_contact = input("Enter new city: ")
+                    self.city = change_contact
                 case 5:
-                    change_company = input("Enter new state: ")
-                    self.state = change_company
+                    change_contact = input("Enter new state: ")
+                    self.state = change_contact
                 case 6:
-                    change_company = input("Enter new phone number: ")
-                    self.phone = change_company
+                    change_contact = input("Enter new phone number: ")
+                    self.phone = change_contact
                 case 7:
-                    change_company = input("Enter new email address: ")
-                    self.email = change_company
+                    change_contact = input("Enter new email address: ")
+                    self.email = change_contact
                 case 8:
-                    change_company = input("Enter new zip code: ")
-                    self.pin = change_company
+                    change_contact = input("Enter new zip code: ")
+                    self.pin = change_contact
                 case 9:
                     break
 
@@ -82,7 +82,11 @@ class AddressBook:
         Parameter: contact class object as parameter.
         Return:None
         """
-        self.contact_dict.update({contact_obj.first_name: contact_obj})
+        if contact_obj.first_name not in self.contact_dict:
+            self.contact_dict.update({contact_obj.first_name: contact_obj})
+
+        else:
+            raise Exception("Contact all. present")
 
     def contact_details(self):
         """
@@ -126,7 +130,7 @@ class AddressBook:
             print("contact not found!!")
 
 
-class MegaBook:
+class MultipleAddressBook:
 
     def __init__(self):
         self.book_dict = {}
@@ -155,11 +159,10 @@ def main():
     Parameter: None
     Return:None
     """
-    multiple_book_obj = MegaBook()
+    multiple_book_obj = MultipleAddressBook()
     try:
         while True:
             choice = int(input("""
-                        ----Choose one of the options below----
                         1. Add contact
                         2. get all details of contact
                         3. update contact info
@@ -202,7 +205,7 @@ def main():
                 case 5:
                     break
     except Exception as e:
-        print(e)
+        print("Exception as {e}")
 
 
 if __name__ == '__main__':
