@@ -13,97 +13,155 @@
 ''' 
 
 class Contact:
-        
-    def new_contact(self) :
-        self.first_name = input("Enter your first name : ")
-        self.last_name = input("Enter your last name : ")
-        self.address = input("Enter your address in short : ")
-        self.city = input("Enter your city name : ")
-        self.state = input("Enter your state name : ")
-        self.phone_num = int(input("Enter your phone_num : "))
-        self.zip_code = int(input("Enter your zip code : "))
-        self.e_mail = input("Enter your e-mail id : ")
-        
+    def __init__(self, contact_detalis_dict):
+        self.first_name = contact_detalis_dict.get("first_name")
+        self.last_name = contact_detalis_dict.get("last_name")
+        self.address = contact_detalis_dict.get("address")
+        self.city = contact_detalis_dict.get("city")
+        self.state = contact_detalis_dict.get("state")
+        self.pin = contact_detalis_dict.get("pin")
+        self.phone = contact_detalis_dict.get("phone")
+        self.email = contact_detalis_dict.get("email")
 
-        
-class AddressBook :
-    def __init__(self) :
-        self.contacts = []
-        
+    def update_contact(self):
+        """
+        Description: This function for updating contact.
+        Parameter: None.
+        Return:None
+        """
+        while True:
+            choice = int(input("""
+                        1. change first name
+                        2. change last name
+                        3. change address
+                        4. change city
+                        5. change state
+                        6. change phone number
+                        7. change email
+                        8. change Zip code
+                        9. exit
+            """))
+            match choice:
+                case 1:
+                    change_company = input("Enter new first name: ")
+                    self.first_name = change_company
+                case 2:
+                    change_company = input("Enter new last name: ")
+                    self.last_name = change_company
+                case 3:
+                    change_company = input("Enter new address: ")
+                    self.address = change_company
+                case 4:
+                    change_company = input("Enter new city: ")
+                    self.city = change_company
+                case 5:
+                    change_company = input("Enter new state: ")
+                    self.state = change_company
+                case 6:
+                    change_company = input("Enter new phone number: ")
+                    self.phone = change_company
+                case 7:
+                    change_company = input("Enter new email address: ")
+                    self.email = change_company
+                case 8:
+                    change_company = input("Enter new zip code: ")
+                    self.pin = change_company
+                case 9:
+                    break
+
+
+class AddressBook:
+    def __init__(self, address_book_name):
+        self.address_book_name = address_book_name
+        self.contact_dict = {}
+
     def add_contact(self, contact_obj):
-        self.contacts.append(contact_obj)
-        print("Contact added successfully")
-        
-    def display_contacts(self):
-        if len(self.contacts) == 0:
-            print("No contacts found.")
-            return
-        for contact in self.contacts:
-            print("----------------------------- \n ")
-            print("First Name:", contact.first_name)
-            print("Last Name:", contact.last_name)
-            print("Address:", contact.address)
-            print("City:", contact.city)
-            print("State:", contact.state)
-            print("ZIP Code:", contact.zip_code)
-            print("Phone Number:", contact.phone_num)
-            print("Email:", contact.e_mail)
-            print("--------------------")
-    
-    def edit_contact(self):
-        first_name = input("Enter the first name to search : ")
-        last_name = input("Enter the last name to search : ")
-        for contact in self.contacts:
-            if contact.first_name == first_name and contact.last_name == last_name:
-                new_address = input("Enter new address: ")
-                new_city = input("Enter new city: ")
-                new_state = input("Enter new state: ")
-                new_zip_code = input("Enter new ZIP code: ")
-                new_phone_number = input("Enter new phone number: ")
-                new_email = input("Enter new email: ")
-                contact.address = new_address
-                contact.city = new_city
-                contact.state = new_state
-                contact.zip_code = new_zip_code
-                contact.phone_num = new_phone_number
-                contact.e_mail = new_email
-                print("Contact updated successfully.")
-                return
-        print("Contact not found.")
-        
-    def delete_contact(self):
-        first_name = input("Enter the first name to search : ")
-        last_name = input("Enter the last name to search : ")
-        for contact in self.contacts:
-            if contact.first_name == first_name and contact.last_name == last_name:
-                self.contacts.remove(contact)
-                print("Contact deleted successfully.")
-                return
-        print("Contact not found.")
-        
-    
-        
+        """
+        Description: This function for adding a contact to contact dictionary.
+        Parameter: contact class object as parameter.
+        Return:None
+        """
+        self.contact_dict.update({contact_obj.first_name: contact_obj})
 
-if __name__ == "__main__":
-    
-    addr_book_obj = AddressBook()
-    while True:
+    def contact_details(self):
+        """
+        Description: This function get all contact details from contact dictionary.
+        Parameter: None
+        Return:None
+        """
+        for key, value in self.contact_dict.items():
+            print(f"first name: {key} last name: {value.last_name} phone number: {value.phone} ")
 
-        choice_num = int(input("Enter the choice number you want for: \n 1. Add New Contact \n 2. Edit a contact \n --> "))
+    def contact_update(self, name):
+        """
+        Description: This function for updating contact.
+        Parameter: string
+        Return:None
+        """
+        contact_obj: Contact = self.contact_dict.get(name)
+        if contact_obj:
+            contact_obj.update_contact()
+        else:
+            print("contact not present!!")
 
-        match choice_num:
-            case 1:
-                contact_obj = Contact()
-                contact_obj.new_contact()
-                addr_book_obj.add_contact(contact_obj=contact_obj)
-                addr_book_obj.display_contacts()
-            case 2:
-                addr_book_obj.edit_contact()
-                addr_book_obj.display_contacts()
-            case 3:
-                addr_book_obj.delete_contact()
-                addr_book_obj.display_contacts()
-            case 10:
-                break
-    
-    
+    def delete_contact(self, name):
+        """
+        Description: This function for delete a contact.
+        Parameter: string
+        Return:None
+        """
+        if name in self.contact_dict:
+            self.contact_dict.pop(name)
+        else:
+            print("contact not found!!")
+
+class MegaBook:
+    pass
+
+def main():
+    """
+    Description: This function for calling all the methods in all classes.
+    Parameter: None
+    Return:None
+    """
+    address_book_name = input("Enter the book name: ")
+    addressbook_obj = AddressBook(address_book_name)
+    try:
+        while True:
+            choice = int(input("""
+                        1. Add contact
+                        2. get all details of contact
+                        3. update contact info
+                        4. delete contact
+                        5. exit
+            """))
+            match choice:
+                case 1:
+                    first_name = input("Enter First Name: ")
+                    last_name = input("Enter Last Name: ")
+                    address = input("Enter Address: ")
+                    city = input("Enter City: ")
+                    state = input("Enter State: ")
+                    pin = int(input("Enter Pin: "))
+                    phone = int(input("Enter Phone: "))
+                    email = input("Enter Email: ")
+                    contact_detalis_dict = {"first_name": first_name, "last_name": last_name, "address": address,
+                                            "city": city, "state": state, "pin": pin, "phone": phone, "email": email}
+                    contact_obj = Contact(contact_detalis_dict)
+                    addressbook_obj.add_contact(contact_obj)
+                case 2:
+                    addressbook_obj.contact_details()
+                case 3:
+                    name = input("Enter name: ")
+                    addressbook_obj.contact_update(name)
+                case 4:
+                    name = input("Enter name: ")
+                    addressbook_obj.delete_contact(name)
+                case 5:
+                    break
+    except Exception as e:
+        print(e)
+
+
+if __name__ == '__main__':
+    main()
