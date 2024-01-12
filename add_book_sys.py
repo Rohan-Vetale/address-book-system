@@ -130,7 +130,7 @@ class AddressBook:
             print("contact not found!!")
 
 
-class MultipleAddressBook:
+class MegaBook:
 
     def __init__(self):
         self.book_dict = {}
@@ -159,7 +159,7 @@ def main():
     Parameter: None
     Return:None
     """
-    multiple_book_obj = MultipleAddressBook()
+    multiple_book_obj = MegaBook()
     try:
         while True:
             choice = int(input("""
