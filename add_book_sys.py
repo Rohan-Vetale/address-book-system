@@ -71,6 +71,16 @@ class AddressBook :
                 return
         print("Contact not found.")
         
+    def delete_contact(self):
+        first_name = input("Enter the first name to search : ")
+        last_name = input("Enter the last name to search : ")
+        for contact in self.contacts:
+            if contact.first_name == first_name and contact.last_name == last_name:
+                self.contacts.remove(contact)
+                print("Contact deleted successfully.")
+                return
+        print("Contact not found.")
+        
     
         
 
@@ -89,6 +99,9 @@ if __name__ == "__main__":
                 addr_book_obj.display_contacts()
             case 2:
                 addr_book_obj.edit_contact()
+                addr_book_obj.display_contacts()
+            case 3:
+                addr_book_obj.delete_contact()
                 addr_book_obj.display_contacts()
             case 10:
                 break
