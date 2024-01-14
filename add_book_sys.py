@@ -43,29 +43,29 @@ class Contact:
             """))
             match choice:
                 case 1:
-                    change_company = input("Enter new first name: ")
-                    self.first_name = change_company
+                    change_first_name= input("Enter new first name: ")
+                    self.first_name = change_first_name
                 case 2:
-                    change_company = input("Enter new last name: ")
-                    self.last_name = change_company
+                    change_last_name = input("Enter new last name: ")
+                    self.last_name = change_last_name
                 case 3:
-                    change_company = input("Enter new address: ")
-                    self.address = change_company
+                    change_address = input("Enter new address: ")
+                    self.address = change_address
                 case 4:
-                    change_company = input("Enter new city: ")
-                    self.city = change_company
+                    change_city = input("Enter new city: ")
+                    self.city = change_city
                 case 5:
-                    change_company = input("Enter new state: ")
-                    self.state = change_company
+                    change_state = input("Enter new state: ")
+                    self.state = change_state
                 case 6:
-                    change_company = input("Enter new phone number: ")
-                    self.phone = change_company
+                    change_num = input("Enter new phone number: ")
+                    self.phone = change_num
                 case 7:
-                    change_company = input("Enter new email address: ")
-                    self.email = change_company
+                    change_mail = input("Enter new email address: ")
+                    self.email = change_mail
                 case 8:
-                    change_company = input("Enter new zip code: ")
-                    self.pin = change_company
+                    change_pin = input("Enter new zip code: ")
+                    self.pin = change_pin
                 case 9:
                     break
 
