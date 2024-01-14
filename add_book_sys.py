@@ -250,7 +250,7 @@ def main():
                     break
 
     except Exception as e:
-        print.exception(e)
+        print(e)
 
 
 if __name__ == '__main__':
