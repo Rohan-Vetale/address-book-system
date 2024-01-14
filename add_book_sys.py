@@ -12,7 +12,6 @@
 
 ''' 
 
-
 class Contact:
     def __init__(self, contact_detalis_dict):
         self.first_name = contact_detalis_dict.get("first_name")
@@ -40,6 +39,7 @@ class Contact:
                 email : {self.email}
                 Zip code : {self.pin}
         """)
+        print("---------------------------------------------------------")
 
     def update_contact(self):
         """
@@ -92,6 +92,8 @@ class AddressBook:
     def __init__(self, address_book_name):
         self.address_book_name = address_book_name
         self.contact_dict = {}
+        self.person_by_city = {}
+        self.person_by_state = {}
 
     def add_contact(self, contact_obj):
         """
@@ -146,15 +148,25 @@ class AddressBook:
         else:
             print("contact not found!!")
 
-    def display_person_in_city_or_state(self, name):
+    def display_person_in_city_or_state(self, city):
         """
-        Description: This function  .
+        Description: This function is displaying aal the contact info using city and state .
         Parameter: string
-        Return:name of address book present in address book dictionary.
+        Return: None
         """
-        for key, value in self.contact_dict.items():
-            if value.city == name or value.state == name:
-                value.display_contact()
+        # for key, value in self.contact_dict.items():
+        #     if value.city == name or value.state == name:
+        #         value.display_contact()
+        #     else:
+        #         print("city or state is not present!!")
+        #         continue
+        #     count += 1
+        #     return count
+        contacts = dict(filter(lambda x: x[1].city.lower() == city.lower() or x[1].state.lower() == city.lower(),
+                               self.contact_dict.items()))
+        for i in contacts.values():
+            i.display_contact()
+        return len(contacts)
 
 
 class MegaBook:
@@ -169,7 +181,6 @@ class MegaBook:
         Return:None
         """
         self.book_dict.update({addressbook_obj.address_book_name: addressbook_obj})
-        print(f"{addressbook_obj.address_book_name}")
 
     def get_book(self, name):
         """
@@ -196,7 +207,6 @@ def main():
                         4. delete contact
                         5. display all contact by city or state
                         6. exit
-                        ---
             """))
             match choice:
                 case 1:
@@ -235,12 +245,12 @@ def main():
                     address_book_name = input("Enter the book name: ")
                     addressbook_obj = multiple_book_obj.get_book(address_book_name)
                     name = input("Enter city or state name: ")
-                    addressbook_obj.display_person_in_city_or_state(name)
+                    print(addressbook_obj.display_person_in_city_or_state(name))
                 case 6:
                     break
 
     except Exception as e:
-        print(e)
+        print.exception(e)
 
 
 if __name__ == '__main__':
