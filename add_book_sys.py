@@ -12,6 +12,7 @@
 
 ''' 
 import csv
+import json
 class Contact:
     def __init__(self, contact_detalis_dict):
         self.first_name = contact_detalis_dict.get("first_name")
@@ -34,6 +35,15 @@ class Contact:
         return [f'{self.first_name} | {self.last_name} | {self.address} | {self.city} | {self.state} | {self.pin} | '
                 f'{self.phone} | {self.email}']
 
+    def add_contact_csv(self):
+        """
+        Description: This function return contact info dict.
+        Parameter: self object as parameter.
+        Return:contact info dict.
+        """
+        return {"first_name": self.first_name, "last_name": self.last_name,
+                "address": self.address, "city": self.city, "state": self.state,
+                "pin": self.pin, "phone": self.phone, "email": self.email}
 
     def display_contact(self):
         """
@@ -107,6 +117,26 @@ class Contact:
         """
         with open(self.file, 'a', newline="") as f:
             f.write(str(f"{self.add_contact_file()}\n"))
+    
+    def add_contact_json(self):
+        """
+        Description: This function return contact info dict.
+        Parameter: self object as parameter.
+        Return: contact info dict.
+        """
+        return {"first_name": self.first_name, "last_name": self.last_name, "address": self.address,
+                "city": self.city, "state": self.state, "pin": self.pin, "phone": self.phone, "email": self.email}
+
+    def add_address_book_file(self):
+        """
+        Description: This function write contact data in a text file.
+        Parameter: self object as parameter.
+        Return:None
+        """
+        with open(self.file, 'a', newline="") as f:
+            f.write(str(f"{self.add_contact_file()}\n"))
+
+    
 
 class AddressBook:
     def __init__(self, address_book_name):
@@ -114,6 +144,8 @@ class AddressBook:
         self.contact_dict = {}
         self.person_by_city = {}
         self.person_by_state = {}
+        self.csv_file = 'csv_file.csv'
+        self.json_contact_dict = {}
 
     def add_contact(self, contact_obj):
         """
@@ -223,6 +255,14 @@ class AddressBook:
                 data = value.add_contact_csv()
                 data.update({'address_book_name': key})
                 writer.writerow(data)
+    def add_json_contact(self):
+        """
+        Description: This function is read and write data in csv file.
+        Parameter: self object as parameter.
+        Return: None
+        """
+        for key, value in self.contact_dict.items():
+            self.json_contact_dict.update({key: value.add_contact_json()})
 
 
         
@@ -233,6 +273,8 @@ class MegaBook:
 
     def __init__(self):
         self.book_dict = {}
+        self.json_file = 'json_file.json'
+        
 
     def add_multiple_book(self, addressbook_obj):
         """
@@ -249,6 +291,32 @@ class MegaBook:
         Return:name of address book present in address book dictionary.
         """
         return self.book_dict.get(name)
+    
+    def write_json(self):
+        """
+        Description: This function for writing data in json file.
+        Parameter: self object as parameter.
+        Return: None
+        """
+        json_dict = {}
+        for name, obj in self.book_dict.items():
+            json_dict.update({name: obj.json_contact_dict})
+        with open(self.json_file, 'w') as file:
+            json.dump(json_dict, file, indent=4)
+            file.close()
+
+    @staticmethod
+    def read_json():
+        """
+        Description: This function for reading data from json file.
+        Parameter: self object as parameter.
+        Return: None
+        """
+        json_file = open("json_file.json")
+        data = json.load(json_file)
+        for i in data.items():
+            print(i)
+        json_file.close()
 
 
 def main():
@@ -280,10 +348,8 @@ def main():
                 case 1:
                     address_book_name = input("Enter the book name: ")
                     addressbook_obj = multiple_book_obj.get_book(address_book_name)
-                    # If the address book doesn't exist, create a new one
                     if addressbook_obj is None:
                         addressbook_obj = AddressBook(address_book_name)
-                    # Gathering contact details from user input
                     first_name = input("Enter First Name: ")
                     last_name = input("Enter Last Name: ")
                     address = input("Enter Address: ")
@@ -292,24 +358,13 @@ def main():
                     pin = int(input("Enter Pin: "))
                     phone = int(input("Enter Phone: "))
                     email = input("Enter Email: ")
-                    # Creating a dictionary with contact details
-                    contact_details_dict = {
-                        "first_name": first_name,
-                        "last_name": last_name,
-                        "address": address,
-                        "city": city,
-                        "state": state,
-                        "pin": pin,
-                        "phone": phone,
-                        "email": email
-                    }
-                    # Creating a Contact object
-                    contact_obj = Contact(contact_details_dict)
-                    contact_obj.write_contact_file()
-                    # Adding the contact to the address book
+                    contact_detalis_dict = {"first_name": first_name, "last_name": last_name, "address": address,
+                                            "city": city, "state": state, "pin": pin, "phone": phone, "email": email}
+                    contact_obj = Contact(contact_detalis_dict)
                     addressbook_obj.add_contact(contact_obj)
-                    # Adding the address book to the multiple book object
                     multiple_book_obj.add_multiple_book(addressbook_obj)
+                    contact_obj.add_address_book_file()
+                    addressbook_obj.add_json_contact()
                 # Case 2: Getting all details of contacts in an address book
                 case 2:
                     address_book_name = input("Enter the book name: ")
@@ -364,7 +419,8 @@ def main():
                     addressbook_obj.read_write_csv()
                     
                 case 9:
-                    pass
+                    multiple_book_obj.write_json()
+                    multiple_book_obj.read_json()
                     
                 case 10:
                     break
