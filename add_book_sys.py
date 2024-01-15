@@ -177,6 +177,19 @@ class AddressBook:
         """
         for key, value in dict(sorted(self.contact_dict.items())).items():
             value.display_contact()
+            
+    def sort_by_city(self, name):
+        """
+        Description: This function is sorting the contact using city, state, zip.
+        Parameter: string
+        Return: None
+        """
+        sorted_contact = sorted(self.contact_dict.values(), key=lambda x: x.city == name, reverse=True)
+        for i in sorted_contact:
+            i: Contact
+            print(i.first_name, '>>>>', i.city)
+
+        
         
 
 
@@ -220,7 +233,8 @@ def main():
                         4. Delete contact
                         5. Display all contacts by city or state
                         6. Display in sorted by name form
-                        7. Exit
+                        7. Display in sorted by city name form
+                        8. Exit the program
             """))
             # Using match statement for different user choices
             match choice:
@@ -295,9 +309,12 @@ def main():
                     if addressbook_obj is None:
                         addressbook_obj = AddressBook(address_book_name)
                     addressbook_obj.sort_by_name()
-                    
-                    
+                  
                 case 7:
+                    #sort by city name
+                    pass  
+                    
+                case 8:
                     break
 
     except Exception as e:
