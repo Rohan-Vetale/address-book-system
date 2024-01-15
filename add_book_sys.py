@@ -168,6 +168,17 @@ class AddressBook:
             i.display_contact()
         return len(contacts)
 
+    
+    def sort_by_name(self):
+        """
+        Description: This function is sorting the contact using person name.
+        Parameter: None
+        Return: None
+        """
+        for key, value in dict(sorted(self.contact_dict.items())).items():
+            value.display_contact()
+        
+
 
 class MegaBook:
 
@@ -208,7 +219,8 @@ def main():
                         3. Update contact info
                         4. Delete contact
                         5. Display all contacts by city or state
-                        6. Exit
+                        6. Display in sorted by name form
+                        7. Exit
             """))
             # Using match statement for different user choices
             match choice:
@@ -277,6 +289,15 @@ def main():
                     print(addressbook_obj.display_person_in_city_or_state(name))
                 # Case 6: Exit the program
                 case 6:
+                    #sort the addressbook by person's name
+                    address_book_name = input("Enter the book name: ")
+                    addressbook_obj = multiple_book_obj.get_book(address_book_name)
+                    if addressbook_obj is None:
+                        addressbook_obj = AddressBook(address_book_name)
+                    addressbook_obj.sort_by_name()
+                    
+                    
+                case 7:
                     break
 
     except Exception as e:
