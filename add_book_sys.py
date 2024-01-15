@@ -22,6 +22,17 @@ class Contact:
         self.pin = contact_detalis_dict.get("pin")
         self.phone = contact_detalis_dict.get("phone")
         self.email = contact_detalis_dict.get("email")
+        self.file = "my_contact.txt"
+        
+    def add_contact_file(self):
+        """
+        Description: This function return all the contact info.
+        Parameter: self object as parameter.
+        Return:contact information.
+        """
+        return [f'{self.first_name} | {self.last_name} | {self.address} | {self.city} | {self.state} | {self.pin} | '
+                f'{self.phone} | {self.email}']
+
 
     def display_contact(self):
         """
@@ -86,7 +97,15 @@ class Contact:
                     self.pin = change_pin
                 case 9:
                     break
-
+            
+    def write_contact_file(self):
+        """
+        Description: This function write contact data in a text file.
+        Parameter: self object as parameter.
+        Return:None
+        """
+        with open(self.file, 'a', newline="") as f:
+            f.write(str(f"{self.add_contact_file()}\n"))
 
 class AddressBook:
     def __init__(self, address_book_name):
@@ -234,7 +253,9 @@ def main():
                         5. Display all contacts by city or state
                         6. Display in sorted by name form
                         7. Display in sorted by city name form
-                        8. Exit the program
+                        8. Write an address book in a CSV file
+                        9. Write an address book in a JSON file
+                        10. Exit the program
             """))
             # Using match statement for different user choices
             match choice:
@@ -267,6 +288,7 @@ def main():
                     }
                     # Creating a Contact object
                     contact_obj = Contact(contact_details_dict)
+                    contact_obj.write_contact_file()
                     # Adding the contact to the address book
                     addressbook_obj.add_contact(contact_obj)
                     # Adding the address book to the multiple book object
@@ -311,10 +333,19 @@ def main():
                     addressbook_obj.sort_by_name()
                   
                 case 7:
-                    #sort by city name
-                    pass  
+                    address_book_name = input("Enter the book name: ")
+                    addressbook_obj = multiple_book_obj.get_book(address_book_name)
+                    if addressbook_obj is None:
+                        addressbook_obj = AddressBook(address_book_name)
+                    addressbook_obj.sort_by_city()
                     
                 case 8:
+                    address_book_name = input("Enter the book name: ")
+                    addressbook_obj = multiple_book_obj.get_book(address_book_name)
+                    if addressbook_obj is None:
+                        addressbook_obj = AddressBook(address_book_name)
+                    addressbook_obj
+                case 9:
                     break
 
     except Exception as e:
