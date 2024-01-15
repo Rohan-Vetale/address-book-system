@@ -11,7 +11,7 @@
 @Title : Program to create a contact of a user normally
 
 ''' 
-
+import csv
 class Contact:
     def __init__(self, contact_detalis_dict):
         self.first_name = contact_detalis_dict.get("first_name")
@@ -23,6 +23,7 @@ class Contact:
         self.phone = contact_detalis_dict.get("phone")
         self.email = contact_detalis_dict.get("email")
         self.file = "my_contact.txt"
+        self.csv_file = "csv_file.csv"
         
     def add_contact_file(self):
         """
@@ -207,6 +208,22 @@ class AddressBook:
         for i in sorted_contact:
             i: Contact
             print(i.first_name, '>>>>', i.city)
+    def read_write_csv(self):
+        """
+        Description: This function is read and write data in csv file.
+        Parameter: self object as parameter.
+        Return: None
+        """
+        with open(self.csv_file, 'w', newline="") as file:
+            field_names = ['address_book_name', 'first_name', 'last_name', 'address', 'city', 'state', 'pin', 'phone',
+                            'email']
+            writer = csv.DictWriter(file, fieldnames=field_names)
+            writer.writeheader()
+            for key, value in self.contact_dict.items():
+                data = value.add_contact_csv()
+                data.update({'address_book_name': key})
+                writer.writerow(data)
+
 
         
         
@@ -344,8 +361,12 @@ def main():
                     addressbook_obj = multiple_book_obj.get_book(address_book_name)
                     if addressbook_obj is None:
                         addressbook_obj = AddressBook(address_book_name)
-                    addressbook_obj
+                    addressbook_obj.read_write_csv()
+                    
                 case 9:
+                    pass
+                    
+                case 10:
                     break
 
     except Exception as e:
