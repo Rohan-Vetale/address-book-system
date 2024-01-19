@@ -1,0 +1,44 @@
+{
+    "Thane": {
+        "Vivek ": {
+            "first_name": "Vivek ",
+            "last_name": "Bindra",
+            "address": "New Road, thane",
+            "city": "Thane",
+            "state": "Maha",
+            "pin": 492920,
+            "phone": 9938392,
+            "email": "nvdiibindra@jfi.oo"
+        },
+        "Sandeep": {
+            "first_name": "Sandeep",
+            "last_name": "Maheshwari",
+            "address": "Delhi Noida",
+            "city": "New Delhi",
+            "state": "Maharashtra",
+            "pin": 84832,
+            "phone": 993923893,
+            "email": "maheshri@fj.sp"
+        },
+        "Larry": {
+            "first_name": "Larry",
+            "last_name": "Page",
+            "address": "Youtube, Founder",
+            "city": "California",
+            "state": "Maharashtra",
+            "pin": 4822,
+            "phone": 9393027,
+            "email": "vniei@mfo.ocn"
+        },
+        "Rohan": {
+            "first_name": "Rohan",
+            "last_name": "Vetale",
+            "address": "ONGC, Panvel",
+            "city": "Panvel",
+            "state": "Maharashtr",
+            "pin": 410206,
+            "phone": 8358292192,
+            "email": "vetalerohan@fmf.cpm"
+        }
+    }
+}

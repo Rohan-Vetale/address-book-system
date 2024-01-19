@@ -62,6 +62,7 @@ class Contact:
                 Zip code : {self.pin}
         """)
         print("---------------------------------------------------------")
+        return self.first_name
 
     def update_contact(self):
         """
