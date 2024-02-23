@@ -49,7 +49,7 @@ class Contact:
         """
         Description: This function for display all contact by city name or state name.
         Parameter: None.
-        Return:None
+        Return: Returns the first name
         """
         print(f"""
                 first name: {self.first_name} 
@@ -205,7 +205,7 @@ class AddressBook:
         """
         Description: This function is displaying all the contact info using city and state .
         Parameter: city : string name of the city
-        Return: None
+        Return: Returns the number of contacts
         """
         # for key, value in self.contact_dict.items():
         #     if value.city == name or value.state == name:
